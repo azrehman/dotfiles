@@ -1,0 +1,307 @@
+[colors]
+accent = #89c289
+accent_forpink = #ffb7c5
+dark = #292627
+darklight = #3E3B3C
+gray = #75767c
+dark_forpink = #1c282e
+
+# first two hex is transparency
+background = #00404552
+;background = #be404552
+;foreground = #e6e6e6
+foreground = #e6e6e6
+
+[bar/top]
+enable-ipc = true
+;monitor = eDP-1
+;monitor = HDMI1
+width = 100%
+height = 36
+
+;background = #222
+;background = #be404552
+;background = ${colors.background}
+background = ${colors.dark_forpink}
+foreground = ${colors.foreground}
+
+border-bottom-size = 0
+border-bottom-color = #333
+; Put the bar at the bottom of the screen
+bottom = false
+
+overline-size = 10
+overline-color = ${self.background}
+underline-size = 4
+underline-color = ${self.background}
+
+padding-left = 2
+padding-right = 2
+module-margin-left = 3
+module-margin-right = 3
+font-0 = SF Pro Display:pixelsize=14;2
+font-1 = SF Pro Text:pixelsize=14;2
+font-2 = FontAwesome:style=Regular:pixelsize=14;3
+font-3 = Font Awesome 5 Free Regular:pixelsize=14;3
+font-4 = Font Awesome 5 Free Solid:pixelsize=14;3
+font-5 = Font Awesome 5 Brands Regular:pixelsize=16;3
+font-6 = Font Awesome 5 Brands Solid:pixelsize=16;3
+font-7 = MaterialIcons:pixelsize=16;3
+font-8 = NotoSans-Regular:size=8;0
+font-9 = MaterialIcons:size=10;2
+
+modules-left = i3
+modules-center = xwindow
+modules-right = cpu memory volume settings clock
+
+wm-restack = i3
+;wm-restack = override-redirect = false
+
+;override-redirect = false
+
+;tray-position = right
+;tray-position = none
+tray-transparent = false
+tray-padding = 1
+tray-scale = 1
+tray-background = ${colors.dark_forpink}
+;tray-background = #FF404552
+tray-detatched = false
+
+
+[module/settings]
+type = custom/text
+content = 
+;content-padding = 1
+;content-foreground = ${color.fg-alt}
+click-left = xfce4-taskmanager &
+click-right = lxappearance &
+
+[module/terminal]
+type = custom/text
+content = 
+content-padding = 0
+;content-foreground = ${color.fg-alt}
+click-left = urxvt &
+click-right = urxvt -e vim &
+
+[module/browser]
+type = custom/text
+content = 
+content-padding = 0
+;content-foreground = ${color.fg-alt}
+click-left = firefox &
+click-right = firefox --private-window &
+
+[module/backlight]
+type = internal/backlight
+output = HDMI-1
+card = intel_backlight
+format = <label>
+label =  %percentage%%
+
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+pin-workspaces = true
+
+;ws-icon-0 = term;
+;ws-icon-1 = web;
+;ws-icon-2 = code;
+;ws-icon-3 = music;
+;ws-icon-4 = irssi;
+;ws-icon-default = w
+
+label-dimmed-underline = ${root.background}
+
+label-focused = %name%
+label-focused-foreground = {colors.foreground}
+;label-focused-background = #83f3f3f
+label-focused-underline = ${colors.accent_forpink}
+# accent color
+;label-focused-underline = #5294E2
+label-focused-font = 0
+label-focused-padding = 2
+
+label-unfocused =  %name%
+label-unfocused-underline = #4075767c
+label-unfocused-font = 0
+label-unfocused-padding = 2
+
+label-urgent = %name%
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-underline = #9b0a20
+label-urgent-font = 0
+label-urgent-padding = 2
+
+label-visible =  %name%
+;label-visible-foreground = #55ffffff
+label-visible-foreground = {colors.foreground}
+label-visible-font = 0
+label-visible-padding = 2
+
+
+[module/cpu]
+type = internal/cpu
+format-padding = 0
+format-prefix = " "
+label = %percentage:2%%
+;click-right = xfce4-taskmanager &
+;click-left = xfce4-taskmanager &
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = " "
+label = %percentage_used%%
+click-right = xfce4-taskmanager &
+;click-left = xfce4-taskmanager &
+
+[module/powermenu]
+format-padding = 2
+type = custom/menu
+
+label-open = ""
+label-close = ""
+label-separator = "  |  "
+
+menu-0-0 = "shutdown"
+menu-0-0-exec = systemctl poweroff
+
+menu-0-1 = "reboot"
+menu-0-1-exec = systemctl reboot
+
+[module/wireless-network]
+type = internal/network
+interface = net1
+interval = 2.0
+ping-interval = 10
+
+format-connected = <ramp-signal> <label-connected>
+label-connected = %essid%
+label-disconnected =    not connected
+label-disconnected-foreground = #66
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+
+animation-packetloss-0 = 
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 = 
+animation-packetloss-1-foreground = ${bar/top.foreground}
+animation-packetloss-framerate = 500
+
+[module/wired-network]
+type = internal/network
+interface = net0
+interval = 2.0
+
+label-connected =   %local_ip%
+label-disconnected = Ethernet disconnected
+label-disconnected-foreground = #66
+
+
+[module/clock]
+type = internal/date
+interval = 5
+format-padding = 0
+;format-background = background
+format-foreground = #fff
+;date =   %%{F#bb}%Y-%m-%d%%{F-} | %%{F#ee}%H:%M%%{F-}
+date =   %%{F#ee}%H:%M%%{F-}
+date-alt =   %%{F#bb}%Y-%m-%d%%{F-} | %%{F#ee}%H:%M%%{F-}
+
+[module/volume]
+;[module/pulseaudio]
+type = internal/pulseaudio
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = true
+; Interval for volume increase/decrease (in percent points)
+; Default: 5
+interval = 5
+enable-scroll = true
+; Available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume> <label-volume>
+
+; Available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+;format-muted = <label-muted>
+
+; Available tokens:
+;   %percentage% (default)
+label-volume = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+format-muted-prefix = ""
+label-muted = MUTE
+label-muted-foreground = #40
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-4 = 
+ramp-volume-5 = 
+ramp-volume-6 = 
+
+click-right = pavucontrol
+
+[module/battery]
+type = internal/battery
+full-at = 96
+adapter = AC
+battery = CMB1
+
+;format-charging =<animation-charging> <label-charging>
+format-charging =<ramp-capacity> <label-charging>
+;label-charging = %percentage%% (%time%)
+label-charging = %percentage%%
+format-discharging = <ramp-capacity> <label-discharging>
+;label-discharging = %percentage%% (%time%)
+label-discharging = %percentage%%
+format-full = <label-full>
+
+format-full-prefix = " "
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+;ramp-capacity-0-foreground = ${color.red}
+;ramp-capacity-foreground = ${color.fg}
+bar-capacity-width = 10
+
+;animation-charging-0 = ""
+;animation-charging-1 = ""
+;animation-charging-2 = ""
+;animation-charging-3 = ""
+;animation-charging-4 = ""
+
+;animation-charging-framerate = 1500
+
+
+
+[module/xwindow]
+type = internal/xwindow
+label-maxlen = 70
+label-foreground = ${colors.foreground}
+
+
+
